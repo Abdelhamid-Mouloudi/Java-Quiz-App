@@ -12,14 +12,14 @@ import com.abdelhamid.question_service.dao.QuestionDao;
 import com.abdelhamid.question_service.model.Question;
 import com.abdelhamid.question_service.model.QuestionWrapper;
 import com.abdelhamid.question_service.model.Response;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
 public class QuestionService {
 	@Autowired
 	QuestionDao questionDao ;
-
+	@Transactional
 	public ResponseEntity<List<Question>> getAllQuestions() {
         try {
             return new ResponseEntity<>(questionDao.findAll(), HttpStatus.OK);
@@ -28,7 +28,7 @@ public class QuestionService {
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
-
+	@Transactional
 	 public ResponseEntity<List<Question>> getQuestionsByCategory(String category) {
 	        try {
 	            return new ResponseEntity<>(questionDao.findByCategory(category),HttpStatus.OK);
@@ -38,16 +38,17 @@ public class QuestionService {
 	        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
 
 	    }
-	
+	@Transactional
 	 public ResponseEntity<String> addQuestion(Question question) {
 	        questionDao.save(question);
 	        return new ResponseEntity<>("success",HttpStatus.CREATED);
 	    }
+	@Transactional
 	  public ResponseEntity<List<Integer>> getQuestionsForQuiz(String categoryName, Integer numQuestions) {
 	        List<Integer> questions = questionDao.findRandomQuestionsByCategory(categoryName, numQuestions);
 	        return new ResponseEntity<>(questions, HttpStatus.OK);
 	    }
-
+	@Transactional
 	    public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(List<Integer> questionIds) {
 	        List<QuestionWrapper> wrappers = new ArrayList<>();
 	        List<Question> questions = new ArrayList<>();
@@ -69,7 +70,7 @@ public class QuestionService {
 
 	        return new ResponseEntity<>(wrappers, HttpStatus.OK);
 	    }
-
+	@Transactional
 	    public ResponseEntity<Integer> getScore(List<Response> responses) {
 
 
