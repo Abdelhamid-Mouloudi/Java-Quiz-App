@@ -2,8 +2,8 @@ package com.abdelhamid.quiz_service.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
+import com.abdelhamid.quiz_service.dao.QuizDao;
+import com.abdelhamid.quiz_service.feign.QuizInterface;
 import com.abdelhamid.quiz_service.model.QuestionWrapper;
 import com.abdelhamid.quiz_service.model.Quiz;
 import org.apache.catalina.connector.Response;
@@ -18,16 +18,17 @@ import org.springframework.stereotype.Service;
 public class QuizService {
 	@Autowired
 	QuizDao quizDao ;
-	//@Autowired
-	//QuestionDao questionDao ;
+	@Autowired
+	QuizInterface quizInterface;
 
 	public ResponseEntity<String> createQuiz(String category, int numQ, String title) {
-	//	List<Question> questions = questionDao.findRandomQuestionsByCategory(category, numQ);
-	//	Quiz quiz = new Quiz();
-	//	quiz.setTitle(title);
-	//	quiz.setQuestions(questions);
-	//	quizDao.save(quiz);
-		return new ResponseEntity<>("success",HttpStatus.CREATED) ;
+		List<Integer> questions = quizInterface.getQuestionsForQuiz(category, numQ).getBody();
+		Quiz quiz = new Quiz();
+		quiz.setTitle(title);
+		quiz.setQuestionIds(questions);
+		quizDao.save(quiz);
+
+		return new ResponseEntity<>("Success", HttpStatus.CREATED);
 		
 	}
 

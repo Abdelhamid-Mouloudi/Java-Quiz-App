@@ -13,6 +13,7 @@ import com.abdelhamid.question_service.model.Question;
 import com.abdelhamid.question_service.model.QuestionWrapper;
 import com.abdelhamid.question_service.model.Response;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Service
