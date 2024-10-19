@@ -2,7 +2,9 @@ package com.abdelhamid.quiz_service.controller;
 
 import java.util.List;
 
+import com.abdelhamid.quiz_service.model.QuestionWrapper;
 import com.abdelhamid.quiz_service.model.QuizDto;
+import com.abdelhamid.quiz_service.model.Response;
 import com.abdelhamid.quiz_service.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,11 +33,11 @@ public class QuizController {
 		return quizService.getQuizQuestions(id);
 		
 	}
-	
-	@PostMapping("submit/{id}")
-	public ResponseEntity<Integer> submitQuiz(@PathVariable Integer id, @RequestBody List<Response> responses){
-		return quizService.calculateResult(id, responses);
-	}
+
+//	@PostMapping("submit/{id}")
+//	public ResponseEntity<Integer> submitQuiz(@PathVariable Integer id, @RequestBody List<Response> responses){
+//		return quizService.calculateResult(id, responses);
+//	}
 	
 	
 }
