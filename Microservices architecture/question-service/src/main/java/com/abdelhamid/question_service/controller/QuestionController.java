@@ -1,5 +1,6 @@
 package com.abdelhamid.question_service.controller;
 
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abdelhamid.question_service.model.Question;
@@ -25,6 +26,8 @@ public class QuestionController {
 	
 	@Autowired
 	QuestionService questionService ;
+    @Autowired
+	Environment environment ;
 
 
 
@@ -51,7 +54,7 @@ public class QuestionController {
 
 	    @PostMapping("getQuestions")
 	    public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(@RequestBody List<Integer> questionIds){
-	       
+	        System.out.println(environment.getProperty("local.server.port"));
 	        return questionService.getQuestionsFromId(questionIds);
 	    }
 
